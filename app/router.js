@@ -9,6 +9,7 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	this.route('active');
 	this.route('completed');
+	this.route('deferred');
 });
 
 export default Router;

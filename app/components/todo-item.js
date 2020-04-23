@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 	repo: Ember.inject.service(),
 	tagName: 'li',
 	editing: false,
-	classNameBindings: ['todo.completed', 'editing'],
+	classNameBindings: ['todo.state', 'editing'],
 
 	actions: {
 		startEditing() {
@@ -34,7 +34,15 @@ export default Ember.Component.extend({
 
 		toggleCompleted(e) {
 			let todo = this.get('todo');
+			Ember.set(todo, 'state', e.target.checked ? 'completed' : 'active');
 			Ember.set(todo, 'completed', e.target.checked);
+			this.get('repo').persist();
+		},
+
+		toggleDeferred(e) {
+			let todo = this.get('todo');
+			Ember.set(todo, 'state',  e.target.checked ? 'deferred' : 'active');
+			Ember.set(todo, 'deferred', e.target.checked);
 			this.get('repo').persist();
 		},
 

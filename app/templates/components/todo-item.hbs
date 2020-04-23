@@ -1,6 +1,12 @@
 <div class="view">
+  {{#unless todo.deferred}}
   <input type="checkbox" class="toggle" checked={{todo.completed}} onchange={{action 'toggleCompleted'}}>
-  <label ondblclick={{action 'startEditing'}}>{{todo.title}}</label>
+  {{/unless}}
+  {{#unless todo.completed}}
+  <input type="checkbox" id="defer" checked={{todo.deferred}} onchange={{action 'toggleDeferred'}}>
+  <label for="defer"> <font size="-1">Defer</font> </label>
+  {{/unless}}
+  <label class="task" ondblclick={{action 'startEditing'}}>{{todo.title}}</label>
   <button onclick={{action 'removeTodo'}} class="destroy"></button>
 </div>
 <input type="text" class="edit" value={{todo.title}} onblur={{action 'doneEditing' value='target.value'}} onkeydown={{action 'handleKeydown'}} autofocus>
